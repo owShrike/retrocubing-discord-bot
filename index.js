@@ -6,7 +6,7 @@ const phrasesData = require("./json/challenges.json");
 const TOKEN = process.env.DISCORD_TOKEN;
 const CHANNEL_ID = process.env.CHANNEL_ID;
 const TZ = process.env.TZ || "Europe/Paris";
-const CRON_EXPR = process.env.CRON || "32 19 * * *";
+const CRON_EXPR = process.env.CRON || "00 19 * * *";
 
 if (!TOKEN) throw new Error("DISCORD_TOKEN manquant dans .env");
 if (!CHANNEL_ID) throw new Error("CHANNEL_ID manquant dans .env");
@@ -43,7 +43,15 @@ client.once("clientReady", async () => {
           return;
         }
         const phrase = pickRandom(phrases);
-        await channel.send(phrase);
+        await channel.send({
+          embeds: [
+            {
+              title: "🧩 Challenge du jour !",
+              description: phrase,
+              color: 0x5e62c2,
+            },
+          ],
+        });
         console.log("Phrase envoyée :", phrase);
       } catch (err) {
         console.error("Erreur envoi :", err);
