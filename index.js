@@ -6,7 +6,7 @@ const phrasesData = require("./json/challenges.json");
 const TOKEN = process.env.DISCORD_TOKEN;
 const CHANNEL_ID = process.env.CHANNEL_ID;
 const TZ = process.env.TZ || "Europe/Paris";
-const CRON_EXPR = process.env.CRON || "00 19 * * *";
+const CRON_EXPR = process.env.CRON || "30 18 * * *";
 
 if (!TOKEN) throw new Error("DISCORD_TOKEN manquant dans .env");
 if (!CHANNEL_ID) throw new Error("CHANNEL_ID manquant dans .env");
