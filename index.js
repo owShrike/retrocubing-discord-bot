@@ -19,8 +19,13 @@ if (!Array.isArray(phrases) || phrases.length === 0) {
   throw new Error("Aucune phrase trouvée dans challenges.json");
 }
 
-function pickRandom(arr) {
-  return arr[Math.floor(Math.random() * arr.length)];
+function pickRandomDistinct(arr, n) {
+  if (n > arr.length) {
+    throw new Error("Pas assez de challenges pour en tirer autant.");
+  }
+
+  const shuffled = [...arr].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, n);
 }
 
 const client = new Client({
@@ -42,12 +47,14 @@ client.once("clientReady", async () => {
           console.error("Channel invalide ou non textuel");
           return;
         }
-        const phrase = pickRandom(phrases);
+        const challenges = pickRandomDistinct(phrases, 3);
         await channel.send({
           embeds: [
             {
               title: "🧩 Challenge du jour !",
-              description: phrase,
+              description: challenges
+                .map((c, i) => `**${i + 1}.** ${c}`)
+                .join("\n\n"),
               color: 0x5e62c2,
             },
           ],
