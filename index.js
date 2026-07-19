@@ -59,7 +59,7 @@ client.once("clientReady", async () => {
             },
           ],
         });
-        console.log("Phrase envoyée :", phrase);
+        console.log("Challenges envoyés :", challenges);
       } catch (err) {
         console.error("Erreur envoi :", err);
       }
